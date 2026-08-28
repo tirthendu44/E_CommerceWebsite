@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import clothingImg from "./assets/clothing.png";
+import electronicsImg from "./assets/electronics.png";
+import fitnessImg from "./assets/fitness.png";
 
 const images = [
-  { src: "/src/assets/clothing.png", alt: "Clothing" },
-  { src: "/src/assets/electronics.png", alt: "Electronics" },
-  { src: "/src/assets/fitness.png", alt: "Fitness" },
+  { src: clothingImg, alt: "Clothing" },
+  { src: electronicsImg, alt: "Electronics" },
+  { src: fitnessImg, alt: "Fitness" },
 ];
 
 export default function Carousel() {
