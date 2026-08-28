@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import clothingImg from "./assets/clothing.png";
 import electronicsImg from "./assets/electronics.png";
 import fitnessImg from "./assets/fitness.png";
-
+import arrow from "./assets/carouselArrow.svg";
 const images = [
   { src: clothingImg, alt: "Clothing" },
   { src: electronicsImg, alt: "Electronics" },
@@ -61,7 +61,7 @@ export default function Carousel() {
         className="absolute top-1/2 left-5 -translate-y-1/2 rounded-full flex items-center justify-center w-12 h-12"
       >
         <img
-          src="/src/assets/carouselArrow.svg"
+          src={arrow}
           alt="Previous"
           className="w-full h-full invert scale-x-[-1] transition-transform duration-200 hover:scale-x-[-1] hover:scale-110"
         />
@@ -72,7 +72,7 @@ export default function Carousel() {
         className="absolute top-1/2 right-5 -translate-y-1/2 rounded-full flex items-center justify-center w-12 h-12"
       >
         <img
-          src="/src/assets/carouselArrow.svg"
+          src={arrow}
           alt="Next"
           className="w-full h-full invert transition-transform duration-200 hover:scale-110"
         />
