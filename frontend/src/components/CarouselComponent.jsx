@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import clothingImg from "../assets/clothing.png";
-import electronicsImg from "../assets/electronics.png";
-import fitnessImg from "../assets/fitness.png";
-import arrow from "../assets/carouselArrow.svg";
+import clothingImg from "/src/assets/clothing.png";
+import electronicsImg from "/src/assets/electronics.png";
+import fitnessImg from "/src/assets/fitness.png";
+import arrow from "/src/assets/carouselArrow.svg";
 const images = [
   { src: clothingImg, alt: "Clothing" },
   { src: electronicsImg, alt: "Electronics" },
