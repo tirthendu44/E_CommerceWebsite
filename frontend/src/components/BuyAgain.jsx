@@ -11,7 +11,7 @@ function ProductList() {
       return
     }
  
-    fetch('http://localhost:5000/orders/buy-again', {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/orders/buy-again`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {

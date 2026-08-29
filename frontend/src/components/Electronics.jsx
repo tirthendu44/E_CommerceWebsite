@@ -4,7 +4,7 @@ function Electronics() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products/category/electronics")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/products/category/electronics`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));

@@ -4,7 +4,7 @@ function Clothing() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products/category/clothing")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/products/category/clothing`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));

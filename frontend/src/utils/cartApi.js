@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 export const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/cart",
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/cart`,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token")
       if (token) headers.set("Authorization", `Bearer ${token}`)
