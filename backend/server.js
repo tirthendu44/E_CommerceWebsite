@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173", // local dev
-    "https://e-commerce-website-git-main-tirthendusekhar-6557s-projects.vercel.app", // your Vercel production domain
-    "https://e-commerce-website-cp3ubnml2-tirthendusekhar-6557s-projects.vercel.app" // your preview domain
-     
+    "https://e-commerce-website-git-main-tirthendusekhar-6557s-projects.vercel.app", // git-branch domain
+    "https://e-commerce-website-cp3ubnml2-tirthendusekhar-6557s-projects.vercel.app", // preview domain
+    "https://e-commerce-website-blue-omega.vercel.app" // stable production alias - this was the missing one
   ],
   credentials: true
 }));
