@@ -4,7 +4,7 @@ function Trending() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products/top?limit=4")
+    fetch("https://e-commercewebsite-nzn1.onrender.com/products/top?limit=4")
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));
