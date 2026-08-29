@@ -182,6 +182,7 @@ function ProductDetails() {
             }
 
             setBuyNowMessage('Payment successful! Your order has been placed.')
+            navigate(`/orderSummary/${verifyData.orderId}`)
           } catch (err) {
             setBuyNowMessage(err.message || 'Payment verification failed. Please contact support.')
           } finally {
