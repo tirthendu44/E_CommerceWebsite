@@ -11,7 +11,16 @@ import orderRoutes from "./routes/orders.js";
 import adminRoutes from "./routes/admin.js";
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173", // local dev
+    "https://e-commerce-website-git-main-tirthendusekhar-6557s-projects.vercel.app", // your Vercel production domain
+    "https://e-commerce-website-cp3ubnml2-tirthendusekhar-6557s-projects.vercel.app" // your preview domain
+     
+  ],
+  credentials: true
+}));
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
