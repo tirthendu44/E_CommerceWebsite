@@ -12,12 +12,17 @@ import adminRoutes from "./routes/admin.js";
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: [
-    "http://localhost:5173", // local dev
-    "https://e-commerce-website-git-main-tirthendusekhar-6557s-projects.vercel.app", // git-branch domain
-    "https://e-commerce-website-cp3ubnml2-tirthendusekhar-6557s-projects.vercel.app", // preview domain
-    "https://e-commerce-website-blue-omega.vercel.app" // stable production alias - this was the missing one
-  ],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, Postman, server-to-server calls)
+    if (!origin) return callback(null, true);
+
+    const allowed =
+      origin === "http://localhost:5173" || // local dev
+      origin === "https://e-commerce-website-blue-omega.vercel.app" || // stable production alias
+      /^https:\/\/e-commerce-website(-[a-z0-9]+)*-tirthendusekhar-6557s-projects\.vercel\.app$/.test(origin); // any git-branch or preview deployment
+
+    callback(allowed ? null : new Error("Not allowed by CORS"), allowed);
+  },
   credentials: true
 }));
 
