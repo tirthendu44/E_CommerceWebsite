@@ -1,10 +1,12 @@
+import "dotenv/config";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 function Trending() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://e-commercewebsite-nzn1.onrender.com/products/top?limit=4")
+    fetch(`${process.env.BACKEND_URL}/products/top?limit=4`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));
