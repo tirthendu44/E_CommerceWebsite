@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const API = '${import.meta.env.VITE_BACKEND_URL}'
+const API = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
 const STATUSES = ['pending', 'paid', 'shipped', 'delivered', 'cancelled']
 
 function authHeaders() {
