@@ -161,7 +161,7 @@ function Navbar() {
                 <span className="sr-only">Open user menu</span>
                 <img
                   alt="Profile"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+                  src="https://png.pngitem.com/pimgs/s/4-40070_user-staff-man-profile-user-account-icon-jpg.png"
                   className="size-10 rounded-full bg-gray-800"
                 />
               </MenuButton>
