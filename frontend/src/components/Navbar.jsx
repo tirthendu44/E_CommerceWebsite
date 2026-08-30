@@ -135,7 +135,7 @@ function Navbar() {
               <button
                 type="button"
                 className="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-0"
-                onClick={() => setCartOpen(true)}
+                onClick={user?() => setCartOpen(true):() => navigate('/login')}
               >
                 <span className="sr-only">Cart</span>
                 <svg
