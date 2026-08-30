@@ -162,7 +162,7 @@ function Navbar() {
                 <img
                   alt="Profile"
                   src="https://png.pngitem.com/pimgs/s/4-40070_user-staff-man-profile-user-account-icon-jpg.png"
-                  className="size-10 rounded-full bg-gray-800"
+                  className="size-9 rounded-full bg-gray-800"
                 />
               </MenuButton>
               <MenuItems
