@@ -34,6 +34,11 @@ function ProductDetails() {
   const [buyNowMessage, setBuyNowMessage] = useState('')
   const [buyingNow, setBuyingNow] = useState(false)
 
+  // Mobile swipeable image carousel state
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const touchStartXRef = useRef(0)
+  const touchDeltaXRef = useRef(0)
+
   useEffect(() => {
     let cancelled = false
 
@@ -61,6 +66,35 @@ function ProductDetails() {
       cancelled = true
     }
   }, [id])
+
+  // Reset to the first image whenever a different product loads.
+  useEffect(() => {
+    setCurrentImageIndex(0)
+  }, [id])
+
+  const handleTouchStart = (e) => {
+    touchStartXRef.current = e.touches[0].clientX
+    touchDeltaXRef.current = 0
+  }
+
+  const handleTouchMove = (e) => {
+    touchDeltaXRef.current = e.touches[0].clientX - touchStartXRef.current
+  }
+
+  const handleTouchEnd = () => {
+    const SWIPE_THRESHOLD = 50 // px - how far a swipe must travel to count
+    const images = product?.images || []
+
+    if (touchDeltaXRef.current <= -SWIPE_THRESHOLD) {
+      // Swiped left - go to next image, but don't wrap past the last one
+      setCurrentImageIndex((i) => Math.min(i + 1, images.length - 1))
+    } else if (touchDeltaXRef.current >= SWIPE_THRESHOLD) {
+      // Swiped right - go to previous image, but don't go below the first
+      setCurrentImageIndex((i) => Math.max(i - 1, 0))
+    }
+
+    touchDeltaXRef.current = 0
+  }
 
   const handleAddToCart = async (e) => {
     e.preventDefault()
@@ -224,6 +258,7 @@ function ProductDetails() {
   if (!product) return null
 
   const reviews = product.reviews || { href: '#', average: 0, totalCount: 0 }
+  const images = product.images || []
 
   return (
     <div className="bg-white">
@@ -257,18 +292,60 @@ function ProductDetails() {
           </ol>
         </nav>
 
-        {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
-          {(product.images || []).slice(0, 4).map((image, index) => (
+        {/* Mobile swipeable image carousel - lg:hidden so it only shows below the desktop grid breakpoint */}
+        <div className="mt-6 lg:hidden">
+          <div
+            className="relative overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+            >
+              {images.map((image, index) => (
+                <img
+                  key={index}
+                  alt={image.alt}
+                  src={image.src}
+                  className="aspect-square w-full shrink-0 object-cover"
+                  draggable={false}
+                />
+              ))}
+            </div>
+          </div>
+
+          {images.length > 1 && (
+            <div className="mt-3 flex justify-center gap-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setCurrentImageIndex(index)}
+                  aria-label={`Go to image ${index + 1}`}
+                  className={classNames(
+                    'size-2 rounded-full transition-colors',
+                    index === currentImageIndex ? 'bg-indigo-600' : 'bg-gray-300'
+                  )}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Desktop image gallery - hidden below lg, unchanged from before */}
+        <div className="mx-auto mt-6 hidden max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-8 lg:px-8">
+          {images.slice(0, 4).map((image, index) => (
             <img
               key={index}
               alt={image.alt}
               src={image.src}
               className={classNames(
-                index === 0 && 'row-span-2 aspect-3/4 size-full rounded-lg object-cover max-lg:hidden',
-                index === 1 && 'col-start-2 aspect-3/2 size-full rounded-lg object-cover max-lg:hidden',
-                index === 2 && 'col-start-2 row-start-2 aspect-3/2 size-full rounded-lg object-cover max-lg:hidden',
-                index === 3 && 'row-span-2 aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-3/4'
+                index === 0 && 'row-span-2 aspect-3/4 size-full rounded-lg object-cover',
+                index === 1 && 'col-start-2 aspect-3/2 size-full rounded-lg object-cover',
+                index === 2 && 'col-start-2 row-start-2 aspect-3/2 size-full rounded-lg object-cover',
+                index === 3 && 'row-span-2 aspect-4/5 size-full rounded-lg object-cover lg:aspect-3/4'
               )}
             />
           ))}
