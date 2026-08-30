@@ -101,7 +101,7 @@ function Navbar() {
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
-                      to={item.href}
+                      to={item.name==='Orders'? user? item.href: '/login': item.href}
                       aria-current={item.current ? 'page' : undefined}
                       className={classNames(
                         'text-gray-300 hover:bg-white/5 hover:text-white',
