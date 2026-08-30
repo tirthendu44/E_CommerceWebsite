@@ -14,6 +14,7 @@ import logo from "/src/assets/e-shoplogo.png"
 import Cart from './Cart'
 import { getTokenExpiry } from '../utils/jwt'
 const navigation = [
+  { name: 'Dashboard', href: '/', current: false },
   { name: 'Products', href: '/products', current: false },
   { name: 'Orders', href: '/orders', current: false },
 ]
@@ -117,6 +118,18 @@ function Navbar() {
 
           {/* Right side controls */}
           <div className="flex items-center space-x-4">
+            {/* Mobile menu toggle - the hamburger that reveals DisclosurePanel below */}
+            {!isAdmin && (
+              <div className="sm:hidden">
+                <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-0">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
+                  <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+                </DisclosureButton>
+              </div>
+            )}
+
             {/* Cart */}
             {!isAdmin && (
               <button
@@ -271,8 +284,8 @@ function Navbar() {
             {navigation.map((item) => (
               <DisclosureButton
                 key={item.name}
-                as="a"
-                href={item.href}
+                as={Link}
+                to={item.href}
                 aria-current={item.current ? 'page' : undefined}
                 className={classNames(
                   item.current
