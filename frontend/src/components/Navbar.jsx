@@ -285,7 +285,7 @@ function Navbar() {
               <DisclosureButton
                 key={item.name}
                 as={Link}
-                to={item.href}
+                to={item.name==='Orders'? user? item.href: '/login': item.href}
                 aria-current={item.current ? 'page' : undefined}
                 className={classNames(
                   item.current
