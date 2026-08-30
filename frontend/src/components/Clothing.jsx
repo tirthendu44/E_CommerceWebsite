@@ -14,7 +14,7 @@ function Clothing() {
     <div className="bg-white rounded-lg shadow p-6">
       <h3 className="text-xl font-semibold text-gray-700 mb-4">Clothing</h3>
 
-      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
         {products.map((product) => (
           <div key={product._id} className="group relative">
             <img
