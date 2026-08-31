@@ -42,7 +42,7 @@ function ProductDetails() {
       setLoading(true)
       setError('')
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products/${id}`)
         const data = await response.json().catch(() => ({}))
 
         if (!response.ok) {
@@ -80,7 +80,7 @@ function ProductDetails() {
 
     setAdding(true)
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/cart/add`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ function ProductDetails() {
       }
 
       // 1. Create a Razorpay order for just this product
-      const orderRes = await fetch(`${import.meta.env.VITE_API_URL}/payment/create-order`, {
+      const orderRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/payment/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ function ProductDetails() {
         handler: async (response) => {
           // 3. On successful payment, verify server-side and record the order
           try {
-            const verifyRes = await fetch(`${import.meta.env.VITE_API_URL}/payment/verify-buy-now`, {
+            const verifyRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/payment/verify-buy-now`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
