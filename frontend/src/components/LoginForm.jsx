@@ -123,9 +123,9 @@ function LoginForm() {
 
         <p className="mt-10 text-center text-sm text-gray-600">
           Not a member?{' '}
-          <Link to='/register' className="font-semibold text-indigo-500 hover:text-indigo-400">
+          <a href="/register" className="font-semibold text-indigo-500 hover:text-indigo-400">
             Register now
-          </Link>
+          </a>
         </p>
       </div>
     </div>
