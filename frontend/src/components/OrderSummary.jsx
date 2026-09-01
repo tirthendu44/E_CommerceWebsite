@@ -66,6 +66,21 @@ function OrderSummary() {
             <div>
               <h2 className="text-base font-medium text-gray-900">{item.name}</h2>
               <p className="mt-1 text-sm text-gray-900">${item.price.toFixed(2)}</p>
+              {(item.color || item.size) && (
+                <div className="mt-1 flex items-center gap-3 text-sm text-gray-500">
+                  {item.color && (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        className="inline-block size-4 rounded-full border border-gray-300 bg-gray-200"
+                        style={{ backgroundColor: item.color }}
+                        title={item.color}
+                      />
+                      {item.color}
+                    </span>
+                  )}
+                  {item.size && <span className="uppercase">{item.size}</span>}
+                </div>
+              )}
               <p className="mt-1 text-sm text-gray-500">Qty {item.quantity}</p>
             </div>
           </li>

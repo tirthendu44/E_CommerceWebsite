@@ -125,11 +125,7 @@ function OrderHistory() {
                         <div className="mt-1 flex items-center gap-3 text-sm text-gray-500">
                           {item.color && (
                             <span className="flex items-center gap-1.5">
-                              <span
-                                className="inline-block size-4 rounded-full border border-gray-300 bg-gray-200"
-                                style={{ backgroundColor: item.color }}
-                                title={item.color}
-                              />
+                              
                               {item.color}
                             </span>
                           )}
