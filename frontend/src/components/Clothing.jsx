@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 function Clothing() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/products/category/clothing`)
       .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error("Error fetching products:", err));
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading || products.length === 0) return null;
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
