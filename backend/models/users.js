@@ -37,6 +37,8 @@ const userSchema = new mongoose.Schema(
         price: Number,
         quantity: { type: Number, default: 1 },
         image: String,
+        color: String,
+        size: String,
       },
     ],
 
@@ -51,6 +53,8 @@ const userSchema = new mongoose.Schema(
             price: Number,
             quantity: Number,
             image: String,
+            color: String,
+            size: String,
           },
         ],
         totalAmount: Number,
