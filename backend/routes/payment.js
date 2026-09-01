@@ -91,6 +91,8 @@ router.post("/verify", verifyToken, async (req, res) => {
       price: item.price,
       quantity: item.quantity,
       image: item.image,
+      color: item.color,
+      size: item.size,
     }));
 
     const newOrderId = new mongoose.Types.ObjectId();
@@ -156,6 +158,8 @@ router.post("/verify-buy-now", verifyToken, async (req, res) => {
       price,
       quantity,
       image,
+      color,
+      size,
     } = req.body;
  
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -179,7 +183,7 @@ router.post("/verify-buy-now", verifyToken, async (req, res) => {
     const newOrderId = new mongoose.Types.ObjectId();
     user.orderHistory.push({
       orderId: newOrderId,
-      items: [{ productId, name, price, quantity: qty, image }],
+      items: [{ productId, name, price, quantity: qty, image, color, size }],
       totalAmount,
       status: "paid",
     });

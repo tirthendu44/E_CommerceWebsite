@@ -34,6 +34,8 @@ router.get("/", verifyToken, async (req, res) => {
           price: item.price,
           quantity: item.quantity,
           image: item.image,
+          color: item.color,
+          size: item.size,
         })),
       }));
 
@@ -126,6 +128,8 @@ router.get("/:id", verifyToken, async (req, res) => {
           price: item.price,
           quantity: item.quantity,
           image: item.image,
+          color: item.color,
+          size: item.size,
         })),
       },
       address: {

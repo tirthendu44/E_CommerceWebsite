@@ -174,6 +174,8 @@ function ProductDetails() {
                 price: product.price,
                 quantity: 1,
                 image: product.images?.[0]?.src,
+                color: selectedColor,
+                size: selectedSize,
               }),
             })
 
