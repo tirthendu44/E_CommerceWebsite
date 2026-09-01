@@ -3,14 +3,21 @@ import { Link } from "react-router-dom";
 
 function Trending() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/products/top?limit=4`)
       .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error("Error fetching products:", err));
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+      });
   }, []);
-
+ if (loading || products.length === 0) return null;
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <h3 className="text-xl font-semibold text-gray-700 mb-4">Trending Products</h3>

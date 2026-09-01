@@ -22,7 +22,7 @@ function ProductList() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
   }, [])
-
+  if (loading || products.length === 0) return null
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <h3 className="text-xl font-semibold text-gray-700 mb-4">Buy Again</h3>
