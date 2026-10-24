@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useGetOrderByIdQuery } from "../utils/orderApi"
 
 // Your schema tracks status per order, not per item, so there is exactly
@@ -82,6 +82,16 @@ function OrderSummary() {
                 </div>
               )}
               <p className="mt-1 text-sm text-gray-500">Qty {item.quantity}</p>
+
+              {/* Only delivered orders can be reviewed - the customer has the product by then. */}
+              {order.status === "delivered" && item.productId && (
+                <Link
+                  to={`/rateAndReview/${item.productId}`}
+                  className="mt-3 inline-block rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-indigo-600 hover:bg-gray-50"
+                >
+                  Rate and review
+                </Link>
+              )}
             </div>
           </li>
         ))}
