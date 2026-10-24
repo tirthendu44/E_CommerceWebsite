@@ -12,6 +12,7 @@ import OrderSummary from "./components/OrderSummary";
 import AdminRoute from "./components/AdminRoute";
 import AdminDashboard from "./components/AdminDashboard";
 import ProductsPage from "./components/ProductsPage";
+import RateAndReview from "./components/RateAndReview";
 function App() {
   
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/orderSummary/:id" element={<OrderSummary />} />
             <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/rateAndReview/:productId" element={<RateAndReview />} />
           </Routes>
         </div>
       </Router>
