@@ -10,6 +10,7 @@ const RATING_LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"]
 
 function RateAndReview() {
   const { productId } = useParams()
+  console.log("productId =", productId)
   const navigate = useNavigate()
 
   const [product, setProduct] = useState(null)
