@@ -380,9 +380,9 @@ function ProductDetails() {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} reviews
-                </a>
+                <Link to={`/reviews/${id}`} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+  {reviews.totalCount} reviews
+</Link>
               </div>
             </div>
 

@@ -66,6 +66,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// POST reviews for a product by id
 router.post("/:id/reviews", verifyToken, async (req, res) => {
   try {
     const rating = Number(req.body.rating);
@@ -147,6 +148,36 @@ router.post("/:id/reviews", verifyToken, async (req, res) => {
     });
   } catch (err) {
     console.error("Submit review error:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+// GET reviews for a product by id
+router.get("/:id/reviews", async (req, res) => {
+  try {
+    const product = await Product.collection.findOne(idQuery(req.params.id));
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    // Newest first. Only fields the page displays - userId stays on the server.
+    const reviews = [...(product.userReviews || [])]
+      .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+      .map((r) => ({
+        _id: r._id,
+        username: r.username,
+        rating: r.rating,
+        comment: r.comment || "",
+        createdAt: r.createdAt,
+      }));
+
+    res.json({
+      product: {
+        name: product.name,
+        image: product.images?.[0]?.src,
+        alt: product.images?.[0]?.alt,
+      },
+      reviews,
+    });
+  } catch (err) {
+    console.error("Fetch reviews error:", err);
     res.status(500).json({ message: err.message });
   }
 });
