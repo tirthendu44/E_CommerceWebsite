@@ -39,9 +39,7 @@ function CategoryPage() {
   return (
     <div className="p-6">
       <div className="bg-white rounded-lg shadow p-6">
-        <Link to="/dashboard" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-          &larr; Back to dashboard
-        </Link>
+       
         <h2 className="mt-3 text-2xl font-bold text-gray-800">{title}</h2>
 
         {loading ? (
