@@ -14,6 +14,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import ProductsPage from "./components/ProductsPage";
 import RateAndReview from "./components/RateAndReview";
 import ReviewsPage from "./components/ReviewsPage";
+import CategoryPage from "./components/CategoryPage";
 function App() {
   
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/rateAndReview/:productId" element={<RateAndReview />} />
             <Route path="/reviews/:productId" element={<ReviewsPage />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
           </Routes>
         </div>
       </Router>

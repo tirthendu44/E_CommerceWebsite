@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // NEW: slides link to a category page
 import clothingImg from "../assets/clothing.png";
 import electronicsImg from "../assets/electronics.png";
 import fitnessImg from "../assets/fitness.png";
 import arrow from "../assets/carouselArrow.svg";
 
+// NEW: `category` must match the category name in your products' breadcrumbs
+// (matched case-insensitively by GET /products/category/:category).
 const images = [
-  { src: clothingImg, alt: "Clothing" },
-  { src: electronicsImg, alt: "Electronics" },
-  { src: fitnessImg, alt: "Fitness" },
+  { src: clothingImg, alt: "Clothing", category: "clothing" },
+  { src: electronicsImg, alt: "Electronics", category: "electronics" },
+  { src: fitnessImg, alt: "Fitness", category: "fitness" },
 ];
 
 export default function Carousel() {
@@ -16,6 +19,7 @@ export default function Carousel() {
   // Swipe tracking (mobile touch)
   const touchStartXRef = useRef(0);
   const touchDeltaXRef = useRef(0);
+  const swipedRef = useRef(false); // NEW: true when the touch was a swipe, not a tap
 
   const nextSlide = () => {
     setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -37,6 +41,7 @@ export default function Carousel() {
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.touches[0].clientX;
     touchDeltaXRef.current = 0;
+    swipedRef.current = false; // NEW
   };
 
   const handleTouchMove = (e) => {
@@ -46,11 +51,22 @@ export default function Carousel() {
   const handleTouchEnd = () => {
     const SWIPE_THRESHOLD = 50; // px
     if (touchDeltaXRef.current <= -SWIPE_THRESHOLD) {
+      swipedRef.current = true; // NEW
       nextSlide(); // swiped left
     } else if (touchDeltaXRef.current >= SWIPE_THRESHOLD) {
+      swipedRef.current = true; // NEW
       prevSlide(); // swiped right
     }
     touchDeltaXRef.current = 0;
+  };
+
+  // NEW: a swipe must change the slide only - it should not also open the
+  // category page. Taps (no swipe) go through to the Link as normal.
+  const handleSlideClick = (e) => {
+    if (swipedRef.current) {
+      e.preventDefault();
+      swipedRef.current = false;
+    }
   };
 
   return (
@@ -67,7 +83,17 @@ export default function Carousel() {
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, index) => (
-          <div key={index} className="w-full h-full flex-shrink-0 relative">
+          // NEW: each slide is now a Link to that category's product page.
+          // tabIndex keeps off-screen slides out of the keyboard tab order.
+          <Link
+            key={index}
+            to={`/category/${img.category}`}
+            aria-label={`Shop ${img.alt}`}
+            onClick={handleSlideClick}
+            draggable={false}
+            tabIndex={index === current ? 0 : -1}
+            className="block w-full h-full flex-shrink-0 relative cursor-pointer"
+          >
             <img
               src={img.src}
               alt={img.alt}
@@ -83,7 +109,7 @@ export default function Carousel() {
                   : `Shop the latest ${img.alt.toLowerCase()} styles.`}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
